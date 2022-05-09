@@ -2,9 +2,17 @@ import Banner from "../components/banner";
 import Card from "../components/card";
 import Head from "next/head";
 import Image from "next/image";
+import coffeeStores from "../data/coffee-stores.json";
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export function getStaticProps(content) {
+  return {
+    props: { coffeeStores },
+  };
+}
+
+export default function Home(props) {
+  console.log({ props });
   const handleOnBannerBtnClick = () => {
     alert("Clicked");
   };
@@ -30,24 +38,19 @@ export default function Home() {
           />
         </div>
         <div className={styles.cardLayout}>
-          <Card
-            className={styles.card}
-            name="DarkHorse Coffee"
-            imgUrl="/static/hero-image.png"
-            href="/coffee-store/darkhorse-coffee"
-          />
-          <Card
-            className={styles.card}
-            name="DarkHorse Coffee"
-            imgUrl="/static/hero-image.png"
-            href="/coffee-store/darkhorse-coffee"
-          />
-          <Card
-            className={styles.card}
-            name="DarkHorse Coffee"
-            imgUrl="/static/hero-image.png"
-            href="/coffee-store/darkhorse-coffee"
-          />
+          {props.coffeeStores.map((coffeeStore) => {
+            return (
+              <Card
+                key={coffeeStore.id}
+                name={coffeeStore.name}
+                imgUrl={
+                  coffeeStore.imgUrl ||
+                  "https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                }
+                href={`/coffee-store/${coffeeStore.id}`}
+              />
+            );
+          })}
         </div>
       </main>
     </div>
