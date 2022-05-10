@@ -2,12 +2,14 @@ import Banner from "../components/banner";
 import Card from "../components/card";
 import Head from "next/head";
 import Image from "next/image";
-import coffeeStoresData from "../data/coffee-stores.json";
+import { fetchCoffeeStores } from "../lib/coffeeStores";
 import styles from "../styles/Home.module.css";
 
-export function getStaticProps(content) {
+export async function getStaticProps(content) {
+  const coffeeStores = await fetchCoffeeStores();
+
   return {
-    props: { coffeeStores: coffeeStoresData },
+    props: { coffeeStores },
   };
 }
 
