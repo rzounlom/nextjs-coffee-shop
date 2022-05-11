@@ -11,7 +11,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       coffeeStore: coffeeStores.find(
-        (coffeeStore) => coffeeStore.fsq_id === params.id
+        (coffeeStore) => coffeeStore.id === params.id
       ),
     },
   };
@@ -24,7 +24,7 @@ export async function getStaticPaths() {
   const paths = coffeeStores.map((coffeeStore) => {
     return {
       params: {
-        id: coffeeStore.fsq_id,
+        id: coffeeStore.id,
       },
     };
   });
@@ -44,7 +44,7 @@ const CoffeeStore = (props) => {
     return <div>loading...</div>;
   }
 
-  const { location, name, imgUrl } = props.coffeeStore;
+  const { address, name, imgUrl, neighborhood } = props.coffeeStore;
   return (
     <div className={styles.layout}>
       <Head>
@@ -80,9 +80,9 @@ const CoffeeStore = (props) => {
               height="24"
               alt="places icon"
             />
-            <p className={styles.text}>{location?.address}</p>
+            <p className={styles.text}>{address}</p>
           </div>
-          {location?.neighborhood && (
+          {neighborhood && (
             <div className={styles.iconWrapper}>
               <Image
                 src="/static/icons/nearMe.svg"
@@ -90,7 +90,7 @@ const CoffeeStore = (props) => {
                 height="24"
                 alt="near me icon"
               />
-              <p className={styles.text}>{location?.neighborhood}</p>
+              <p className={styles.text}>{neighborhood}</p>
             </div>
           )}
           <div className={styles.iconWrapper}>
