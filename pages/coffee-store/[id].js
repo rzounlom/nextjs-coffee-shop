@@ -44,7 +44,7 @@ const CoffeeStore = (props) => {
     return <div>loading...</div>;
   }
 
-  const { address, name, neighbourhood, imgUrl } = props.coffeeStore;
+  const { location, name, imgUrl } = props.coffeeStore;
   return (
     <div className={styles.layout}>
       <Head>
@@ -80,19 +80,19 @@ const CoffeeStore = (props) => {
               height="24"
               alt="places icon"
             />
-            <p className={styles.text}>{address}</p>
+            <p className={styles.text}>{location?.address}</p>
           </div>
-          {/* {neighbourhood && ( */}
-          <div className={styles.iconWrapper}>
-            <Image
-              src="/static/icons/nearMe.svg"
-              width="24"
-              height="24"
-              alt="near me icon"
-            />
-            <p className={styles.text}>{neighbourhood}</p>
-          </div>
-          {/* )} */}
+          {location?.neighborhood && (
+            <div className={styles.iconWrapper}>
+              <Image
+                src="/static/icons/nearMe.svg"
+                width="24"
+                height="24"
+                alt="near me icon"
+              />
+              <p className={styles.text}>{location?.neighborhood}</p>
+            </div>
+          )}
           <div className={styles.iconWrapper}>
             <Image
               src="/static/icons/star.svg"
